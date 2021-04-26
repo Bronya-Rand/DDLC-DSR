@@ -190,8 +190,14 @@ style say_thought is say_dialogue
 style namebox is default
 style namebox_label is say_label
 
-transform dsr:
+transform textbox_dsr:
     size(816 * 1.5, 146 * 1.5)
+
+transform regular_dsr:
+    size(1280 * 1.5, 720 * 1.5)
+
+transform menu_bg_dsr:
+    size(1380 * 1.5, 1320 * 1.5)
 
 style window:
     xalign 0.5
@@ -199,7 +205,7 @@ style window:
     yalign gui.textbox_yalign
     ysize gui.textbox_height
 
-    background At(Image("gui/textbox.png", xalign=0.5, yalign=1.0), dsr)
+    background At(Image("gui/textbox.png", xalign=0.5, yalign=1.0), textbox_dsr)
 
 style window_monika is window:
     background Image("gui/textbox_monika.png", xalign=0.5, yalign=1.0)
@@ -529,7 +535,7 @@ screen main_menu():
         add "menu_art_y_ghost"
         add "menu_art_n_ghost"
     else:
-        add "menu_bg"
+        add "menu_bg" at menu_bg_dsr
         add "menu_art_y"
         add "menu_art_n"
         frame:
@@ -581,7 +587,7 @@ style main_menu_frame:
     xsize 310
     yfill True
 
-    background "menu_nav"
+    background At("menu_nav", regular_dsr)
 
 style main_menu_vbox:
     xalign 1.0
