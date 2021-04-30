@@ -202,9 +202,9 @@ init python: #This whole block runs when DDLC is started (as opposed to when the
 label poem(transition=True):
     stop music fadeout 2.0
     if persistent.playthrough == 3: #Takes us to the glitched notebook if we're in Just Monika Mode.
-        scene bg notebook-glitch
+        scene bg notebook-glitch at dynamic_super_resolution(read_image_size("bg/notebook-glitch.png"))
     else:
-        scene bg notebook
+        scene bg notebook at dynamic_super_resolution(read_image_size("bg/notebook.png"))
     show screen quick_menu #This allows the player to pull up the save menu during the poem minigame.
     if persistent.playthrough == 3: 
         show m_sticker at sticker_mid #Just Monika.
@@ -257,7 +257,7 @@ label poem(transition=True):
 
         # Main loop for drawing and selecting words
         while True:
-            ystart = 160
+            ystart = int(160*persistent.dsr_scale)
 ##################This block of code controls the word counter.###########################################
             if persistent.playthrough == 2 and chapter == 2:
                 #This makes the counter do the "111111111" thing in Act 2.
@@ -266,11 +266,11 @@ label poem(transition=True):
                     pstring += "1" #Appends "1" to pstring each loop.
             else:
                 pstring = str(progress)
-            ui.text(pstring + "/" + str(numWords), style="poemgame_text", xpos=810, ypos=80, color='#000') #This is the word counter.
+            ui.text(pstring + "/" + str(numWords), style="poemgame_text", xpos=int(810*persistent.dsr_scale), ypos=int(80*persistent.dsr_scale), color='#000') #This is the word counter.
 ##################This block of code puts the poem words on the screen.###################################
             for j in range(2): #In python, range() is not inclusive. So j loops from 0 to 1.
-                if j == 0: x = 440 #These two lines build columns out of the words. The first column is at 440px and the second at 680px.
-                else: x = 680
+                if j == 0: x = int(440*persistent.dsr_scale) #These two lines build columns out of the words. The first column is at 440px and the second at 680px.
+                else: x = int(680*persistent.dsr_scale)
                 ui.vbox() #This is outdated UI code to create a vbox. It adds things to the vbox until it hits a ui.close()
                 for i in range(5):
                     if persistent.playthrough == 3: #This sets all the words to "Monika" in Just Monika.
@@ -286,7 +286,7 @@ label poem(transition=True):
                     else: #Normal circumstances
                         word = random.choice(wordlist) #Pick a random word out the wordlist
                         wordlist.remove(word) #Remove the word from the list. This prevents a word from being on the screen twice.
-                    ui.textbutton(word.word, clicked=ui.returns(word), text_style="poemgame_text", xpos=x, ypos=i * 56 + ystart)
+                    ui.textbutton(word.word, clicked=ui.returns(word), text_style="poemgame_text", xpos=x, ypos=i * int(56*persistent.dsr_scale) + ystart)
                 ui.close() #Closes the vbox from above
 ##################This block controls what happens when words are selected.############################
             t = ui.interact()
@@ -388,24 +388,27 @@ label poem(transition=True):
 image bg eyes_move:
     "images/bg/eyes.png"
     parallel:
-        yoffset 720 ytile 2
+        yoffset int(720*persistent.dsr_scale) ytile 2
         linear 0.5 yoffset 0
         repeat
     parallel:
         0.1
         choice:
-            xoffset 20
+            xoffset int(20*persistent.dsr_scale)
             0.05
             xoffset 0
         choice:
             xoffset 0
         repeat
+    dynamic_super_resolution(read_image_size("images/bg/eyes.png"))
 image bg eyes:
     "images/bg/eyes.png"
+    dynamic_super_resolution(read_image_size("images/bg/eyes.png"))
 
 image s_sticker:
     "gui/poemgame/s_sticker_1.png"
     xoffset sayoriOffset xzoom sayoriZoom
+    dynamic_super_resolution(read_image_size("gui/poemgame/s_sticker_1.png"))
     block:
         function randomPauseSayori
         parallel:
@@ -417,6 +420,7 @@ image s_sticker:
 image n_sticker:
     "gui/poemgame/n_sticker_1.png"
     xoffset natsukiOffset xzoom natsukiZoom
+    dynamic_super_resolution(read_image_size("gui/poemgame/n_sticker_1.png"))
     block:
         function randomPauseNatsuki
         parallel:
@@ -424,10 +428,12 @@ image n_sticker:
         parallel:
             function randomMoveNatsuki
         repeat
+    
 
 image y_sticker:
     "gui/poemgame/y_sticker_1.png"
     xoffset yuriOffset xzoom yuriZoom
+    dynamic_super_resolution(read_image_size("gui/poemgame/y_sticker_1.png"))
     block:
         function randomPauseYuri
         parallel:
@@ -439,6 +445,7 @@ image y_sticker:
 image y_sticker_cut:
     "gui/poemgame/y_sticker_cut_1.png"
     xoffset yuriOffset xzoom yuriZoom
+    dynamic_super_resolution(read_image_size("gui/poemgame/y_sticker_cut_1.png"))
     block:
         function randomPauseYuri
         parallel:
@@ -450,6 +457,7 @@ image y_sticker_cut:
 image m_sticker:
     "gui/poemgame/m_sticker_1.png"
     xoffset monikaOffset xzoom monikaZoom
+    dynamic_super_resolution(read_image_size("gui/poemgame/m_sticker_1.png"))
     block:
         function randomPauseMonika
         parallel:
@@ -461,6 +469,7 @@ image m_sticker:
 image s_sticker hop:
     "gui/poemgame/s_sticker_2.png"
     xoffset sayoriOffset xzoom sayoriZoom
+    dynamic_super_resolution(read_image_size("gui/poemgame/s_sticker_2.png"))
     sticker_hop
     xoffset 0 xzoom 1
     "s_sticker"
@@ -468,6 +477,7 @@ image s_sticker hop:
 image n_sticker hop:
     "gui/poemgame/n_sticker_2.png"
     xoffset natsukiOffset xzoom natsukiZoom
+    dynamic_super_resolution(read_image_size("gui/poemgame/n_sticker_2.png"))
     sticker_hop
     xoffset 0 xzoom 1
     "n_sticker"
@@ -475,6 +485,7 @@ image n_sticker hop:
 image y_sticker hop:
     "gui/poemgame/y_sticker_2.png"
     xoffset yuriOffset xzoom yuriZoom
+    dynamic_super_resolution(read_image_size("gui/poemgame/y_sticker_2.png"))
     sticker_hop
     xoffset 0 xzoom 1
     "y_sticker"
@@ -482,6 +493,7 @@ image y_sticker hop:
 image y_sticker_cut hop:
     "gui/poemgame/y_sticker_cut_2.png"
     xoffset yuriOffset xzoom yuriZoom
+    dynamic_super_resolution(read_image_size("gui/poemgame/y_sticker_cut_2.png"))
     sticker_hop
     xoffset 0 xzoom 1
     "y_sticker_cut"
@@ -489,6 +501,7 @@ image y_sticker_cut hop:
 image y_sticker hopg:
     "gui/poemgame/y_sticker_2g.png"
     xoffset yuriOffset xzoom yuriZoom
+    dynamic_super_resolution(read_image_size("gui/poemgame/y_sticker_2g.png"))
     sticker_hop
     xoffset 0 xzoom 1
     "y_sticker"
@@ -496,6 +509,7 @@ image y_sticker hopg:
 image m_sticker hop:
     "gui/poemgame/m_sticker_2.png"
     xoffset monikaOffset xzoom monikaZoom
+    dynamic_super_resolution(read_image_size("gui/poemgame/m_sticker_2.png"))
     sticker_hop
     xoffset 0 xzoom 1
     "m_sticker"
@@ -503,6 +517,7 @@ image m_sticker hop:
 image y_sticker glitch:
     "gui/poemgame/y_sticker_1_broken.png"
     xoffset yuriOffset xzoom yuriZoom zoom 3.0
+    dynamic_super_resolution(read_image_size("gui/poemgame/y_sticker_1_broken.png"))
     block:
         function randomPauseYuri
         parallel:
@@ -512,19 +527,19 @@ image y_sticker glitch:
         repeat
 
 transform sticker_left:
-    xcenter 100 yalign 0.9 subpixel True
+    xcenter int(100*persistent.dsr_scale) yalign 0.9 subpixel True
 
 transform sticker_mid:
-    xcenter 220 yalign 0.9 subpixel True
+    xcenter int(220*persistent.dsr_scale) yalign 0.9 subpixel True
 
 transform sticker_right:
-    xcenter 340 yalign 0.9 subpixel True
+    xcenter int(340*persistent.dsr_scale) yalign 0.9 subpixel True
 
 transform sticker_glitch:
-    xcenter 50 yalign 1.8 subpixel True
+    xcenter int(50*persistent.dsr_scale) yalign 1.8 subpixel True
 
 transform sticker_m_glitch:
-    xcenter 100 yalign 1.35 subpixel True
+    xcenter int(100*persistent.dsr_scale) yalign 1.35 subpixel True
 
 transform sticker_move_n:
     easein_quad .08 yoffset -15

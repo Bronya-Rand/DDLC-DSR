@@ -4,11 +4,12 @@
 # You may remove 'scripts' if you recieve conflict with scripts.rpa
 ## Note: For building a mod for PC/Android, you must keep the DDLC RPAs 
 ## and decompile them for the builds to work.
-init -100 python:
-    if not renpy.android:
-        for archive in ['audio','images','scripts','fonts']:
-            if archive not in config.archives:
-                renpy.error("DDLC archive files not found in /game folder. Check your installation and try again.")
+
+# init -100 python:
+#     if not renpy.android:
+#         for archive in ['audio','images','scripts','fonts']:
+#             if archive not in config.archives:
+#                 renpy.error("DDLC archive files not found in /game folder. Check your installation and try again.")
 
 # Splash Message
 init python:
@@ -27,9 +28,9 @@ image splash_warning = ParameterizedText(style="splash_text", xalign=0.5, yalign
 image menu_logo:
     "/mod_assets/DDLCModTemplateLogo.png"
     subpixel True
-    xcenter 240
-    ycenter 120
-    zoom 0.60
+    xcenter int(240 * persistent.dsr_scale)
+    ycenter int(120 * persistent.dsr_scale) 
+    zoom 0.60 * persistent.dsr_scale
     menu_logo_move
 
 image menu_bg:
@@ -49,34 +50,34 @@ image menu_fade:
 image menu_art_y:
     subpixel True
     "gui/menu_art_y.png"
-    xcenter 600
-    ycenter 335
+    xcenter int(600 * persistent.dsr_scale)
+    ycenter int(335 * persistent.dsr_scale)
     zoom 0.60
-    menu_art_move(0.54, 600, 0.60)
+    menu_art_move_dsr(read_image_size("gui/menu_art_y.png"), 0.54, 600, 0.60)
 
 image menu_art_n:
     subpixel True
     "gui/menu_art_n.png"
-    xcenter 750
-    ycenter 385
+    xcenter int(750 * persistent.dsr_scale)
+    ycenter int(385 * persistent.dsr_scale)
     zoom 0.58
-    menu_art_move(0.58, 750, 0.58)
+    menu_art_move_dsr(read_image_size("gui/menu_art_n.png"), 0.58, 750, 0.58)
 
 image menu_art_s:
     subpixel True
     "gui/menu_art_s.png"
-    xcenter 510
-    ycenter 500
+    xcenter int(510 * persistent.dsr_scale)
+    ycenter int(500 * persistent.dsr_scale)
     zoom 0.68
-    menu_art_move(0.68, 510, 0.68)
+    menu_art_move_dsr(read_image_size("gui/menu_art_s.png"), 0.68, 510, 0.68)
 
 image menu_art_m:
     subpixel True
     "gui/menu_art_m.png"
-    xcenter 1000
-    ycenter 640
+    xcenter int(1000 * persistent.dsr_scale)
+    ycenter int(640 * persistent.dsr_scale)
     zoom 1.00
-    menu_art_move(1.00, 1000, 1.00)
+    menu_art_move_dsr(read_image_size("gui/menu_art_m.png"), 1.00, 1000, 1.00)
 
 # Ghost Main Menu Images
 image menu_art_y_ghost:
@@ -141,7 +142,7 @@ transform menu_bg_move:
     topleft
     parallel:
         xoffset 0 yoffset 0
-        linear 3.0 xoffset -100 yoffset -100
+        linear 3.0 * persistent.dsr_scale xoffset int(-100 * persistent.dsr_scale) yoffset int(-100 * persistent.dsr_scale)
         repeat
     parallel:
         ypos 0
@@ -153,18 +154,18 @@ transform menu_bg_loop:
     topleft
     parallel:
         xoffset 0 yoffset 0
-        linear 3.0 xoffset -100 yoffset -100
+        linear 3.0 * persistent.dsr_scale xoffset int(-100 * persistent.dsr_scale) yoffset int(-100 * persistent.dsr_scale)
         repeat
 
 transform menu_logo_move:
     subpixel True
-    yoffset -300
+    yoffset int(-300 * persistent.dsr_scale)
     time 1.925
     easein_bounce 1.5 yoffset 0
 
 transform menu_nav_move:
     subpixel True
-    xoffset -500
+    xoffset int(-500 * persistent.dsr_scale)
     time 1.5
     easein_quint 1 xoffset 0
 
@@ -202,7 +203,7 @@ image intro:
 image warning:
     truecenter
     "white"
-    "splash_warning" with Dissolve(0.5, alpha=True)
+    "splash_warning" with Dissolve(0.5, alpha=True) 
     2.5
     "white" with Dissolve(0.5, alpha=True)
     0.5
@@ -313,7 +314,7 @@ label splashscreen:
         $ quick_menu = False
         scene white
         pause 0.5
-        scene tos
+        scene tos at dynamic_super_resolution(read_image_size("bg/warning.png"))
         with Dissolve(1.0)
         pause 1.0
         # You can edit this message but you MUST have say it's not affiliated with Team Salvato
@@ -326,8 +327,8 @@ label splashscreen:
             "I agree.":
                  pass
         $ persistent.first_run = True
-        scene tos2
-        with Dissolve(1.5)
+        scene tos2 at dynamic_super_resolution(read_image_size("bg/warning.png2"))
+        with Dissolve(persistent.dsr_scale)
         pause 1.0
         scene white
 
@@ -447,7 +448,7 @@ label splashscreen:
     $ config.main_menu_music = audio.t1
     $ renpy.music.play(config.main_menu_music)
     $ starttime = datetime.datetime.now()
-    show intro with Dissolve(0.5, alpha=True)
+    show intro at dynamic_super_resolution(read_image_size("bg/splash.png")) with Dissolve(0.5, alpha=True) 
     $ pause(3.0 - (datetime.datetime.now() - starttime).total_seconds())
     hide intro with Dissolve(max(0, 3.5 - (datetime.datetime.now() - starttime).total_seconds()), alpha=True)
     if persistent.playthrough == 2 and renpy.random.randint(0, 3) == 0:
@@ -540,5 +541,6 @@ label quit:
         scene white
         show expression "gui/menu_art_m_ghost.png":
             xpos -100 ypos -100 zoom 3.5
+            dynamic_super_resolution(read_image_size("gui/menu_art_m_ghost.png"))
         pause 0.01
     return

@@ -54,7 +54,7 @@ style hyperlink_text:
     hover_underline True
 
 style splash_text:
-    size 24
+    size int(24 * persistent.dsr_scale)
     color "#000"
     font gui.default_font
     text_align 0.5
@@ -63,7 +63,7 @@ style splash_text:
 style poemgame_text:
     yalign 0.5
     font "gui/font/Halogen.ttf"
-    size 30
+    size int(30 * persistent.dsr_scale)
     color "#000"
     outlines []
 
@@ -190,14 +190,42 @@ style say_thought is say_dialogue
 style namebox is default
 style namebox_label is say_label
 
-transform textbox_dsr:
-    size(816 * 1.5, 146 * 1.5)
+init python:
 
-transform regular_dsr:
-    size(1280 * 1.5, 720 * 1.5)
+    def read_image_size(spritePath):
+        if spritePath is None:
+            return
+        path = renpy.image_size(spritePath)
+        return path
 
-transform menu_bg_dsr:
-    size(1380 * 1.5, 1320 * 1.5)
+    def read_image_prefix_size(spritePath):
+        try:
+            for i in [ "idle_", "hover_", "insensitive_", "selected_idle_", "selected_", "selected_hover_", "hover_", "selected_insensitive_"]:
+                directory = spritePath.replace("[prefix_]", i)
+                if renpy.loadable(directory):
+                    path = renpy.image_size(directory)
+        except:
+            return
+        return path
+
+transform menu_art_move_dsr(dsr, z, x, z2): 
+    size(int(dsr[0] * persistent.dsr_scale), int(dsr[1] * persistent.dsr_scale))
+    subpixel True
+    yoffset int(0 + (1200 * z) * persistent.dsr_scale)
+    xoffset int((740 - x) * z * 0.5  * persistent.dsr_scale)
+    zoom z2 * 0.75
+    time 1.0
+    parallel:
+        ease 1.75 yoffset 0
+    parallel:
+        pause 0.75
+        ease 1.5 zoom z2 xoffset 0
+
+transform dynamic_super_resolution(dsr):
+    size(int(dsr[0] * persistent.dsr_scale), int(dsr[1] * persistent.dsr_scale))
+
+transform input_dsr(x, y):
+    size(int(x*persistent.dsr_scale), int(y*persistent.dsr_scale))
 
 style window:
     xalign 0.5
@@ -205,7 +233,7 @@ style window:
     yalign gui.textbox_yalign
     ysize gui.textbox_height
 
-    background At(Image("gui/textbox.png", xalign=0.5, yalign=1.0), textbox_dsr)
+    background At(Image("gui/textbox.png", xalign=0.5, yalign=1.0), dynamic_super_resolution(read_image_size("gui/textbox.png")))
 
 style window_monika is window:
     background Image("gui/textbox_monika.png", xalign=0.5, yalign=1.0)
@@ -535,7 +563,7 @@ screen main_menu():
         add "menu_art_y_ghost"
         add "menu_art_n_ghost"
     else:
-        add "menu_bg" at menu_bg_dsr
+        add "menu_bg" at dynamic_super_resolution(read_image_size("gui/menu_bg.png"))
         add "menu_art_y"
         add "menu_art_n"
         frame:
@@ -580,21 +608,21 @@ style main_menu_text is gui_text
 style main_menu_title is main_menu_text
 style main_menu_version is main_menu_text:
     color "#000000"
-    size 16
+    size int(16 * persistent.dsr_scale)
     outlines []
 
 style main_menu_frame:
-    xsize 310
+    xsize int(310 * persistent.dsr_scale)
     yfill True
 
-    background At("menu_nav", regular_dsr)
+    background At("menu_nav", dynamic_super_resolution(read_image_size("gui/overlay/main_menu.png")))
 
 style main_menu_vbox:
     xalign 1.0
-    xoffset -20
-    xmaximum 800
+    xoffset int(-20 * persistent.dsr_scale)
+    xmaximum int(800 * persistent.dsr_scale)
     yalign 1.0
-    yoffset -20
+    yoffset int(-20 * persistent.dsr_scale)
 
 style main_menu_text:
     xalign 1.0
@@ -625,10 +653,10 @@ screen game_menu(title, scroll=None):
 
     # Add the backgrounds.
     if main_menu:
-        add gui.main_menu_background
+        add gui.main_menu_background at dynamic_super_resolution(read_image_size("gui/menu_bg.png"))
     else:
         key "mouseup_3" action Return()
-        add gui.game_menu_background
+        add gui.game_menu_background at dynamic_super_resolution(read_image_size("gui/menu_bg.png"))
 
     style_prefix "game_menu"
 
@@ -705,32 +733,32 @@ style return_button is navigation_button
 style return_button_text is navigation_button_text
 
 style game_menu_outer_frame:
-    bottom_padding 30
-    top_padding 120
+    bottom_padding int(30 * persistent.dsr_scale)
+    top_padding int(120 * persistent.dsr_scale)
 
-    background "gui/overlay/game_menu.png"
+    background At(Image("gui/overlay/game_menu.png"), dynamic_super_resolution(read_image_size("gui/overlay/game_menu.png")))
 
 style game_menu_navigation_frame:
-    xsize 280
+    xsize int(280 * persistent.dsr_scale)
     yfill True
 
 style game_menu_content_frame:
-    left_margin 40
-    right_margin 20
-    top_margin 10
+    left_margin int(40 * persistent.dsr_scale)
+    right_margin int(30 * persistent.dsr_scale)
+    top_margin int(15 * persistent.dsr_scale)
 
 style game_menu_viewport:
-    xsize 920
+    xsize int(920 * persistent.dsr_scale)
 
 style game_menu_vscrollbar:
     unscrollable gui.unscrollable
 
 style game_menu_side:
-    spacing 10
+    spacing int(10 * persistent.dsr_scale)
 
 style game_menu_label:
-    xpos 50
-    ysize 120
+    xpos int(50 * persistent.dsr_scale)
+    ysize int(120 * persistent.dsr_scale)
 
 style game_menu_label_text:
     font "gui/font/RifficFree-Bold.ttf"
@@ -743,7 +771,7 @@ style game_menu_label_text:
 style return_button:
     xpos gui.navigation_xpos
     yalign 1.0
-    yoffset -30
+    yoffset int(-30 * persistent.dsr_scale)
 
 
 ## About screen ################################################################
@@ -864,7 +892,7 @@ screen file_slots(title):
 
                         has vbox
 
-                        add FileScreenshot(slot) xalign 0.5
+                        add FileScreenshot(slot) xalign 0.5 at input_dsr(256, 144)
 
                         text FileTime(slot, format=_("{#file_time}%A, %B %d %Y, %H:%M"), empty=_("empty slot")):
                             style "slot_time_text"
@@ -1072,20 +1100,25 @@ style pref_label:
 
 style pref_label_text:
     font "gui/font/RifficFree-Bold.ttf"
-    size 24
+    size int(24 * persistent.dsr_scale)
     color "#fff"
     outlines [(3, "#b59", 0, 0), (1, "#b59", 1, 1)]
     yalign 1.0
 
 style pref_vbox:
-    xsize 225
+    xsize int(225 * persistent.dsr_scale)
 
 style radio_vbox:
     spacing gui.pref_button_spacing
 
+image check_X_foreground:
+    "gui/button/check_[prefix_]foreground.png"
+    dynamic_super_resolution(read_image_prefix_size("gui/button/check_[prefix_]foreground.png"))
+
 style radio_button:
     properties gui.button_properties("radio_button")
-    foreground "gui/button/check_[prefix_]foreground.png"
+    foreground "check_X_foreground"
+    #size int(24 * persistent.dsr_scale)
 
 style radio_button_text:
     properties gui.button_text_properties("radio_button")
@@ -1097,7 +1130,7 @@ style check_vbox:
 
 style check_button:
     properties gui.button_properties("check_button")
-    foreground "gui/button/check_[prefix_]foreground.png"
+    foreground "check_X_foreground"
 
 style check_button_text:
     properties gui.button_text_properties("check_button")
@@ -1105,7 +1138,7 @@ style check_button_text:
     outlines []
 
 style slider_slider:
-    xsize 350
+    xsize int(350 * persistent.dsr_scale)
 
 style slider_button:
     properties gui.button_properties("slider_button")
@@ -1116,7 +1149,7 @@ style slider_button_text:
     properties gui.button_text_properties("slider_button")
 
 style slider_vbox:
-    xsize 450
+    xsize int(450 * persistent.dsr_scale)
 
 
 ## History screen ##############################################################
@@ -1129,22 +1162,34 @@ style slider_vbox:
 
 screen history():
     tag menu
+
     predict False
 
     use game_menu(_("History"), scroll=("vpgrid" if gui.history_height else "viewport")):
+        
         style_prefix "history"
+
         for h in _history_list:
+
             window:
+
+                ## This lays things out properly if history_height is None.
                 has fixed:
                     yfit True
+
                 if h.who:
+
                     label h.who:
                         style "history_name"
+
                         if "color" in h.who_args:
                             text_color h.who_args["color"]
+
                 $ what = filter_text_tags(h.what, allow=set([]))
+
                 text what:
                     substitute False
+
         if not _history_list:
             label _("The dialogue history is empty.")
             
@@ -1395,7 +1440,7 @@ screen name_input(message, ok_action):
 
     style_prefix "confirm"
 
-    add "gui/overlay/confirm.png"
+    add "gui/overlay/confirm.png" at dynamic_super_resolution(read_image_size("gui/overlay/confirm.png"))
     key "K_RETURN" action [Play("sound", gui.activate_sound), ok_action]
 
     frame:
@@ -1431,7 +1476,7 @@ screen dialog(message, ok_action):
 
     style_prefix "confirm"
 
-    add "gui/overlay/confirm.png"
+    add "gui/overlay/confirm.png" at dynamic_super_resolution(read_image_size("gui/overlay/confirm.png"))
 
     frame:
 
@@ -1466,7 +1511,7 @@ screen confirm(message, yes_action, no_action):
 
     style_prefix "confirm"
 
-    add "gui/overlay/confirm.png"
+    add "gui/overlay/confirm.png" at dynamic_super_resolution(read_image_size("gui/overlay/confirm.png"))
 
     frame:
 

@@ -7,7 +7,7 @@
 
 init -2 python:
     # Set's the resolution of DDLC to 1280x720p@60Hz
-    gui.init(1920, 1080)
+    gui.init(1280 * persistent.dsr_scale, 720 * persistent.dsr_scale)
 
 # GUI Config Variables
 define -2 gui.hover_sound = "gui/sfx/hover.ogg" # Hover Sound Effect
@@ -57,22 +57,22 @@ define -2 gui.name_font = "gui/font/RifficFree-Bold.ttf"
 define -2 gui.interface_font = "gui/font/Aller_Rg.ttf"
 
 ## The size of normal dialogue text.
-define -2 gui.text_size = int(24 * 1.5)
+define -2 gui.text_size = int(24 * persistent.dsr_scale)
 
 ## The size of character names.
-define -2 gui.name_text_size = int(24 * 1.5)
+define -2 gui.name_text_size = int(24 * persistent.dsr_scale)
 
 ## The size of text in the game's user interface.
-define -2 gui.interface_text_size = int(24 * 1.5)
+define -2 gui.interface_text_size = int(24 * persistent.dsr_scale)
 
 ## The size of labels in the game's user interface.
-define -2 gui.label_text_size = int(28 * 1.5)
+define -2 gui.label_text_size = int(28 * persistent.dsr_scale)
 
 ## The size of text on the notify screen.
-define -2 gui.notify_text_size = int(16 * 1.5)
+define -2 gui.notify_text_size = int(16 * persistent.dsr_scale)
 
 ## The size of the game's title.
-define -2 gui.title_text_size = int(38 * 1.5)
+define -2 gui.title_text_size = int(38 * persistent.dsr_scale)
 
 # Main Menu and Game Menu
 
@@ -88,7 +88,7 @@ define -2 gui.show_name = False
 # Dialogue
 
 ## The height of the textbox containing dialogue.
-define -2 gui.textbox_height = int(182 * 1.5)
+define -2 gui.textbox_height = int(182 * persistent.dsr_scale)
 
 ## The placement of the textbox vertically on the screen. 0.0 is the top, 0.5 is
 ## center, and 1.0 is the bottom.
@@ -96,8 +96,8 @@ define -2 gui.textbox_yalign = 0.99
 
 ## The placement of the speaking character's name, relative to the textbox.
 ## These can be a whole number of pixels from the left or top, or 0.5 to center.
-define gui.name_xpos = int(350 * 1.5)
-define gui.name_ypos = int(-3 * 1.5)
+define gui.name_xpos = int(350 * persistent.dsr_scale)
+define gui.name_ypos = int(-3 * persistent.dsr_scale)
 
 ## The horizontal alignment of the character's name. This can be 0.0 for left-
 ## aligned, 0.5 for centered, and 1.0 for right-aligned.
@@ -105,12 +105,12 @@ define gui.name_xalign = 0.5
 
 ## The width, height, and borders of the box containing the character's name, or
 ## None to automatically size it.
-define gui.namebox_width = int(168 * 1.5)
-define gui.namebox_height = int(39 * 1.5)
+define gui.namebox_width = int(168 * persistent.dsr_scale)
+define gui.namebox_height = int(39 * persistent.dsr_scale)
 
 ## The borders of the box containing the character's name, in left, top, right,
 ## bottom order.
-define gui.namebox_borders = Borders(5,5,5,2)
+define gui.namebox_borders = Borders(5, 5, 5, 2)
 
 ## If True, the background of the namebox will be tiled, if False, the
 ## background if the namebox will be scaled.
@@ -120,11 +120,11 @@ define gui.namebox_tile = False
 ## The placement of dialogue relative to the textbox. These can be a whole
 ## number of pixels relative to the left or top side of the textbox, or 0.5 to
 ## center.
-define gui.text_xpos = int(268 * 1.5)
-define gui.text_ypos = int(62 * 1.5)
+define gui.text_xpos = int(268 * persistent.dsr_scale)
+define gui.text_ypos = int(62 * persistent.dsr_scale)
 
 ## The maximum width of dialogue text, in pixels.
-define gui.text_width = int(744 * 1.5)
+define gui.text_width = int(744 * persistent.dsr_scale)
 
 ## The horizontal alignment of the dialogue text. This can be 0.0 for left-
 ## aligned, 0.5 for centered, and 1.0 for right-aligned.
@@ -137,10 +137,10 @@ define gui.text_xalign = 0.0
 
 ## The width and height of a button, in pixels. If None, Ren'Py computes a size.
 define gui.button_width = None
-define gui.button_height = int(36 * 1.5)
+define gui.button_height = int(36 * persistent.dsr_scale)
 
 ## The borders on each side of the button, in left, top, right, bottom order.
-define gui.button_borders = Borders(4, 4, 4, 4)
+define gui.button_borders = Borders(int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale))
 
 ## If True, the background image will be tiled. If False, the background image
 ## will be linearly scaled.
@@ -168,16 +168,16 @@ define gui.button_text_xalign = 0.0
 ##
 ## These customizations are used by the default interface:
 
-define gui.radio_button_borders = Borders(28, 4, 4, 4)
+define gui.radio_button_borders = Borders(int(28 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale))
 
-define gui.check_button_borders = Borders(28, 4, 4, 4)
+define gui.check_button_borders = Borders(int(28 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale))
 
 define gui.confirm_button_text_xalign = 0.5
 
-define gui.page_button_borders = Borders(28, 4, 4, 4)
+define gui.page_button_borders = Borders(int(28 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale))
 
 #define gui.quick_button_borders = Borders(10, 4, 10, 0)
-define gui.quick_button_text_size = int(14 * 1.5)
+define gui.quick_button_text_size = int(14 * persistent.dsr_scale)
 define gui.quick_button_text_idle_color = "#522"
 define gui.quick_button_text_hover_color = "#fcc"
 define gui.quick_button_text_selected_color = gui.accent_color
@@ -193,10 +193,10 @@ define gui.quick_button_text_insensitive_color = "#a66"
 
 ## Choice buttons are used in the in-game menus.
 
-define gui.choice_button_width = int(420 * 1.5)
+define gui.choice_button_width = int(420 * persistent.dsr_scale)
 define gui.choice_button_height = None
 define gui.choice_button_tile = False
-define gui.choice_button_borders = Borders(100, 5, 100, 5)
+define gui.choice_button_borders = Borders(int(100 * persistent.dsr_scale), int(8 * persistent.dsr_scale), int(150 * persistent.dsr_scale), int(8 * persistent.dsr_scale))
 define gui.choice_button_text_font = gui.default_font
 define gui.choice_button_text_size = gui.text_size
 define gui.choice_button_text_xalign = 0.5
@@ -206,21 +206,21 @@ define gui.choice_button_text_hover_color = "#fa9"
 # File Slot Buttons 
 
 ## A file slot button is a special kind of button. It contains a thumbnail
-## image, and text describing the contents of the save slot. A save slot uses
+## image, and text describing the contents of the save slot. A save slot uses 
 ## image files in gui/button, like the other kinds of buttons.
 
 ## The save slot button.
-define gui.slot_button_width = int(276 * 1.5)
-define gui.slot_button_height = int(206 * 1.5)
-define gui.slot_button_borders = Borders(10, 10, 10, 10)
-define gui.slot_button_text_size = int(14 * 1.5)
+define gui.slot_button_width = int(276 * persistent.dsr_scale)
+define gui.slot_button_height = int(206 * persistent.dsr_scale)
+define gui.slot_button_borders = Borders(int(10 * persistent.dsr_scale), int(10 * persistent.dsr_scale), int(10 * persistent.dsr_scale), int(10 * persistent.dsr_scale))
+define gui.slot_button_text_size = int(14 * persistent.dsr_scale)
 define gui.slot_button_text_xalign = 0.5
 define gui.slot_button_text_idle_color = gui.idle_small_color
 define gui.slot_button_text_hover_color = gui.hover_color
 
 ## The width and height of thumbnails used by the save slots.
-define config.thumbnail_width = int(256 * 1.55)
-define config.thumbnail_height = int(144 * 1.55)
+define config.thumbnail_width = int(256 * persistent.dsr_scale)
+define config.thumbnail_height = int(144 * persistent.dsr_scale)
 
 ## The number of columns and rows in the grid of save slots.
 define gui.file_slot_cols = 3
@@ -233,22 +233,22 @@ define gui.file_slot_rows = 2
 
 ## The position of the left side of the navigation buttons, relative to the left
 ## side of the screen.
-define gui.navigation_xpos = int(80 * 1.5)
+define gui.navigation_xpos = 80
 
 ## The vertical position of the skip indicator.
-define gui.skip_ypos = int(10 * 1.5)
+define gui.skip_ypos = int(10 * persistent.dsr_scale)
 
 ## The vertical position of the notify screen.
-define gui.notify_ypos = int(45 * 1.5)
+define gui.notify_ypos = int(45 * persistent.dsr_scale)
 
 ## The spacing between menu choices.
-define gui.choice_spacing = int(22 * 1.5)
+define gui.choice_spacing = int(22 * persistent.dsr_scale)
 
 ## Buttons in the navigation section of the main and game menus.
-define gui.navigation_spacing = int(6 * 1.5)
+define gui.navigation_spacing = 6
 
 ## Controls the amount of spacing between preferences.
-define gui.pref_spacing = int(10 * 1.5)
+define gui.pref_spacing = int(10 * persistent.dsr_scale)
 
 ## Controls the amount of spacing between preference buttons.
 define gui.pref_button_spacing = 0
@@ -257,7 +257,7 @@ define gui.pref_button_spacing = 0
 define gui.page_spacing = 0
 
 ## The spacing between file slots.
-define gui.slot_spacing = int(10 * 1.5)
+define gui.slot_spacing = int(10 * persistent.dsr_scale)
 
 # Frames
 
@@ -265,16 +265,16 @@ define gui.slot_spacing = int(10 * 1.5)
 ## components when an overlay or window is not present.
 
 ## Generic frames that are introduced by player code.
-define gui.frame_borders = Borders(4,4,4,4)
+define gui.frame_borders = Borders(int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale))
 
 ## The frame that is used as part of the confirm screen.
-define gui.confirm_frame_borders = Borders(40,40,40,40)
+define gui.confirm_frame_borders = Borders(int(40 * persistent.dsr_scale), int(40 * persistent.dsr_scale), int(40 * persistent.dsr_scale), int(40 * persistent.dsr_scale))
 
 ## The frame that is used as part of the skip screen.
-define gui.skip_frame_borders = Borders(16, 5, 50, 5)
+define gui.skip_frame_borders = Borders(int(16 * persistent.dsr_scale), int(5 * persistent.dsr_scale), int(50 * persistent.dsr_scale), int(5 * persistent.dsr_scale))
 
 ## The frame that is used as part of the notify screen.
-define gui.notify_frame_borders = Borders(16, 5, 40, 5)
+define gui.notify_frame_borders = Borders(int(16 * persistent.dsr_scale), int(5 * persistent.dsr_scale), int(40 * persistent.dsr_scale), int(5 * persistent.dsr_scale))
 
 ## Should frame backgrounds be tiled?
 define gui.frame_tile = False
@@ -288,9 +288,9 @@ define gui.frame_tile = False
 
 ## The height of horizontal bars, scrollbars, and sliders. The width of vertical
 ## bars, scrollbars, and sliders.
-define gui.bar_size = int(36 * 1.5)
-define gui.scrollbar_size = int(12 * 1.5)
-define gui.slider_size = int(30 * 1.5)
+define gui.bar_size = int(36 * persistent.dsr_scale)
+define gui.scrollbar_size = int(12 * persistent.dsr_scale)
+define gui.slider_size = int(30 * persistent.dsr_scale)
 
 ## True if bar images should be tiled. False if they should be linearly scaled.
 define gui.bar_tile = False
@@ -298,14 +298,14 @@ define gui.scrollbar_tile = False
 define gui.slider_tile = False
 
 ## Horizontal borders.
-define gui.bar_borders = Borders(4, 4, 4, 4)
-define gui.scrollbar_borders = Borders(4, 4, 4, 4)
-define gui.slider_borders = Borders(4, 4, 4, 4)
+define gui.bar_borders = Borders(int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale))
+define gui.scrollbar_borders = Borders(int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale))
+define gui.slider_borders = Borders(int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale))
 
 ## Vertical borders.
-define gui.vbar_borders = Borders(4, 4, 4, 4)
-define gui.vscrollbar_borders = Borders(4, 4, 4, 4)
-define gui.vslider_borders = Borders(4, 4, 4, 4)
+define gui.vbar_borders = Borders(int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale))
+define gui.vscrollbar_borders = Borders(int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale))
+define gui.vslider_borders = Borders(int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale), int(4 * persistent.dsr_scale))
 
 ## What to do with unscrollable scrollbars in the gui. "hide" hides them, while
 ## None shows them.
@@ -316,7 +316,7 @@ define gui.unscrollable = "hide"
 ## The history screen displays dialogue that the player has already dismissed.
 
 ## The number of blocks of dialogue history Ren'Py will keep.
-define config.history_length = int(50 * 1.5)
+define config.history_length = 50
 
 ## The height of a history screen entry, or None to make the height variable at
 ## the cost of performance.
@@ -324,15 +324,15 @@ define gui.history_height = None
 
 ## The position, width, and alignment of the label giving the name of the
 ## speaking character.
-define gui.history_name_xpos = 150
+define gui.history_name_xpos = int(150 * persistent.dsr_scale)
 define gui.history_name_ypos = 0
-define gui.history_name_width = 150
+define gui.history_name_width = int(150 * persistent.dsr_scale)
 define gui.history_name_xalign = 1.0
 
 ## The position, width, and alignment of the dialogue text.
-define gui.history_text_xpos = int(170 * 1.5)
+define gui.history_text_xpos = int(170 * persistent.dsr_scale)
 define gui.history_text_ypos = 5
-define gui.history_text_width = 740
+define gui.history_text_width = int(740 * persistent.dsr_scale)
 define gui.history_text_xalign = 0.0
 
 # NVL-Mode
@@ -340,11 +340,11 @@ define gui.history_text_xalign = 0.0
 ## The NVL-mode screen displays the dialogue spoken by NVL-mode characters.
 
 ## The borders of the background of the NVL-mode background window.
-define gui.nvl_borders = Borders(0, 10, 0, 20)
+define gui.nvl_borders = Borders(0, int(10 * persistent.dsr_scale), 0, int(20 * persistent.dsr_scale))
 
 ## The height of an NVL-mode entry. Set this to None to have the entries
 ## dynamically adjust height.
-define gui.nvl_height = 115
+define gui.nvl_height = int(115 * persistent.dsr_scale)
 
 ## The spacing between NVL-mode entries when gui.nvl_height is None, and between
 ## NVL-mode entries and an NVL-mode menu.
@@ -352,26 +352,26 @@ define gui.nvl_spacing = 10
 
 ## The position, width, and alignment of the label giving the name of the
 ## speaking character.
-define gui.nvl_name_xpos = 430
+define gui.nvl_name_xpos = int(430 * persistent.dsr_scale)
 define gui.nvl_name_ypos = 0
-define gui.nvl_name_width = 150
+define gui.nvl_name_width = int(150 * persistent.dsr_scale)
 define gui.nvl_name_xalign = 1.0
 
 ## The position, width, and alignment of the dialogue text.
-define gui.nvl_text_xpos = 450
+define gui.nvl_text_xpos = int(450 * persistent.dsr_scale)
 define gui.nvl_text_ypos = 8
-define gui.nvl_text_width = 590
+define gui.nvl_text_width = int(590 * persistent.dsr_scale)
 define gui.nvl_text_xalign = 0.0
 
 ## The position, width, and alignment of nvl_thought text (the text said by the
 ## nvl_narrator character.)
-define gui.nvl_thought_xpos = 240
+define gui.nvl_thought_xpos = int(240 * persistent.dsr_scale)
 define gui.nvl_thought_ypos = 0
-define gui.nvl_thought_width = 780
+define gui.nvl_thought_width = int(780 * persistent.dsr_scale)
 define gui.nvl_thought_xalign = 0.0
 
 ## The position of nvl menu_buttons.
-define gui.nvl_button_xpos = 450
+define gui.nvl_button_xpos = int(450 * persistent.dsr_scale)
 define gui.nvl_button_xalign = 0.0
 
 # Mobile Phones & Tablets i.e the Android GUI code

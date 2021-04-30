@@ -7,19 +7,19 @@ transform tcommon(x=640, z=0.80):
     yanchor 1.0 subpixel True
     on show:
         ypos 1.03
-        zoom z*0.95 alpha 0.00
+        zoom z*(0.95*persistent.dsr_scale) alpha 0.00
         xcenter x yoffset -20
-        easein .25 yoffset 0 zoom z*1.00 alpha 1.00
+        easein .25 yoffset 0 zoom z*(1.00*persistent.dsr_scale) alpha 1.00
     on replace:
 
         alpha 1.00
         parallel:
-            easein .25 xcenter x zoom z*1.00
+            easein .25 xcenter x zoom z*(1.00*persistent.dsr_scale)
         parallel:
             easein .15 yoffset 0 ypos 1.03
 
 transform tinstant(x=640, z=0.80):
-    xcenter x yoffset 0 zoom z*1.00 alpha 1.00 yanchor 1.0 ypos 1.03
+    xcenter x yoffset 0 zoom z*(1.00*persistent.dsr_scale) alpha 1.00 yanchor 1.0 ypos 1.03
 
 # This pulls out the character that is talking and makes them bigger
 transform focus(x=640, z=0.80):
@@ -28,41 +28,41 @@ transform focus(x=640, z=0.80):
 
         zoom z*0.95 alpha 0.00
         xcenter x yoffset -20
-        easein .25 yoffset 0 zoom z*1.05 alpha 1.00
+        easein .25 yoffset 0 zoom z*(1.05*persistent.dsr_scale) alpha 1.00
         yanchor 1.0 ypos 1.03
     on replace:
         alpha 1.00
         parallel:
-            easein .25 xcenter x zoom z*1.05
+            easein .25 xcenter x zoom z*(1.05*persistent.dsr_scale)
         parallel:
             easein .15 yoffset 0
 
 # This causes the character to sink down
 transform sink(x=640, z=0.80):
-    xcenter x yoffset 0 yanchor 1.0 ypos 1.03 zoom z*1.00 alpha 1.00 subpixel True
+    xcenter x yoffset 0 yanchor 1.0 ypos 1.03 zoom z*(1.00*persistent.dsr_scale) alpha 1.00 subpixel True
     easein .5 ypos 1.06
 
 # This makes the character jump
 transform hop(x=640, z=0.80):
-    xcenter x yoffset 0 yanchor 1.0 ypos 1.03 zoom z*1.00 alpha 1.00 subpixel True
+    xcenter x yoffset 0 yanchor 1.0 ypos 1.03 zoom z*(1.00*persistent.dsr_scale) alpha 1.00 subpixel True
     easein .1 yoffset -20
     easeout .1 yoffset 0
 
 # Like hop but for a character that is focused
 transform hopfocus(x=640, z=0.80):
-    xcenter x yoffset 0 yanchor 1.0 ypos 1.03 zoom z*1.05 alpha 1.00 subpixel True
+    xcenter x yoffset 0 yanchor 1.0 ypos 1.03 zoom z*(1.05*persistent.dsr_scale) alpha 1.00 subpixel True
     easein .1 yoffset -21
     easeout .1 yoffset 0
 
 # This causes the character to dip down for a second and come back up
 transform dip(x=640, z=0.80):
-    xcenter x yoffset 0 yanchor 1.0 ypos 1.03 zoom z*1.00 alpha 1.00 subpixel True
+    xcenter x yoffset 0 yanchor 1.0 ypos 1.03 zoom z*(1.00*persistent.dsr_scale) alpha 1.00 subpixel True
     easein .25 yoffset 25
     easeout .25 yoffset 0
 
 # This causes the character to wobble from side to side and up and down
 transform panic(x=640, z=0.80):
-    xcenter x yoffset 0 yanchor 1.0 ypos 1.03 zoom z*1.00 alpha 1.00 subpixel True
+    xcenter x yoffset 0 yanchor 1.0 ypos 1.03 zoom z*(1.00*persistent.dsr_scale) alpha 1.00 subpixel True
     parallel:
         ease 1.2 yoffset 25
         ease 1.2 yoffset 0
@@ -75,11 +75,11 @@ transform panic(x=640, z=0.80):
 
 # This causes the character to fly in
 transform leftin(x=640, z=0.80):
-    xcenter -300 yoffset 0 yanchor 1.0 ypos 1.03 zoom z*1.00 alpha 1.00 subpixel True
+    xcenter -300 yoffset 0 yanchor 1.0 ypos 1.03 zoom z*(1.00*persistent.dsr_scale) alpha 1.00 subpixel True
     easein .25 xcenter x
 
 transform rightin(x=640, z=0.80):
-    xcenter 2000 yoffset 0 yanchor 1.0 ypos 1.03 zoom z*1.00 alpha 1.00 subpixel True
+    xcenter 2000 yoffset 0 yanchor 1.0 ypos 1.03 zoom z*(1.00*persistent.dsr_scale) alpha 1.00 subpixel True
     easein .25 xcenter x
 
 # This hides the character
@@ -88,7 +88,7 @@ transform thide(z=0.80):
     transform_anchor True
     on hide:
 
-        easein .25 zoom z*0.95 alpha 0.00 yoffset -20
+        easein .25 zoom z*(0.95*persistent.dsr_scale) alpha 0.00 yoffset -20
 transform lhide:
     subpixel True
     on hide:
@@ -101,201 +101,201 @@ transform rhide:
 
 # Normal positioning and animation based on how many characters
 transform t41:
-    tcommon(200)
+    tcommon(int(200 * persistent.dsr_scale))
 transform t42:
-    tcommon(493)
+    tcommon(int(493 * persistent.dsr_scale))
 transform t43:
-    tcommon(786)
+    tcommon(int(786 * persistent.dsr_scale))
 transform t44:
-    tcommon(1080)
+    tcommon(int(1080 * persistent.dsr_scale))
 transform t31:
-    tcommon(240)
+    tcommon(int(240 * persistent.dsr_scale))
 transform t32:
-    tcommon(640)
+    tcommon(int(640 * persistent.dsr_scale))
 transform t33:
-    tcommon(1040)
+    tcommon(int(1040 * persistent.dsr_scale))
 transform t21:
-    tcommon(400)
+    tcommon(int(400 * persistent.dsr_scale))
 transform t22:
-    tcommon(880)
+    tcommon(int(880 * persistent.dsr_scale))
 transform t11:
-    tcommon(640)
+    tcommon(int(640 * persistent.dsr_scale))
 
 # Makes the character pop in 
 transform i41:
-    tinstant(200)
+    tinstant(int(200 * persistent.dsr_scale))
 transform i42:
-    tinstant(493)
+    tinstant(int(493 * persistent.dsr_scale))
 transform i43:
-    tinstant(786)
+    tinstant(int(786 * persistent.dsr_scale))
 transform i44:
-    tinstant(1080)
+    tinstant(int(1080 * persistent.dsr_scale))
 transform i31:
-    tinstant(240)
+    tinstant(int(240 * persistent.dsr_scale))
 transform i32:
-    tinstant(640)
+    tinstant(int(640 * persistent.dsr_scale))
 transform i33:
-    tinstant(1040)
+    tinstant(int(1040 * persistent.dsr_scale))
 transform i21:
-    tinstant(400)
+    tinstant(int(400 * persistent.dsr_scale))
 transform i22:
-    tinstant(880)
+    tinstant(int(880 * persistent.dsr_scale))
 transform i11:
-    tinstant(640)
+    tinstant(int(640 * persistent.dsr_scale))
 
 # Makes the character the focus
 transform f41:
-    focus(200)
+    focus(int(200 * persistent.dsr_scale))
 transform f42:
-    focus(493)
+    focus(int(493 * persistent.dsr_scale))
 transform f43:
-    focus(786)
+    focus(int(786 * persistent.dsr_scale))
 transform f44:
-    focus(1080)
+    focus(int(1080 * persistent.dsr_scale))
 transform f31:
-    focus(240)
+    focus(int(240 * persistent.dsr_scale))
 transform f32:
-    focus(640)
+    focus(int(640 * persistent.dsr_scale))
 transform f33:
-    focus(1040)
+    focus(int(1040 * persistent.dsr_scale))
 transform f21:
-    focus(400)
+    focus(int(400 * persistent.dsr_scale))
 transform f22:
-    focus(880)
+    focus(int(880 * persistent.dsr_scale))
 transform f11:
-    focus(640)
+    focus(int(640 * persistent.dsr_scale))
 
 # Makes the character sink
 transform s41:
-    sink(200)
+    sink(int(200 * persistent.dsr_scale))
 transform s42:
-    sink(493)
+    sink(int(493 * persistent.dsr_scale))
 transform s43:
-    sink(786)
+    sink(int(786 * persistent.dsr_scale))
 transform s44:
-    sink(1080)
+    sink(int(1080 * persistent.dsr_scale))
 transform s31:
-    sink(240)
+    sink(int(240 * persistent.dsr_scale))
 transform s32:
-    sink(640)
+    sink(int(640 * persistent.dsr_scale))
 transform s33:
-    sink(1040)
+    sink(int(1040 * persistent.dsr_scale))
 transform s21:
-    sink(400)
+    sink(int(400 * persistent.dsr_scale))
 transform s22:
-    sink(880)
+    sink(int(880 * persistent.dsr_scale))
 transform s11:
-    sink(640)
+    sink(int(640 * persistent.dsr_scale))
 
 # Makes the character hop
 transform h41:
-    hop(200)
+    hop(int(200 * persistent.dsr_scale))
 transform h42:
-    hop(493)
+    hop(int(493 * persistent.dsr_scale))
 transform h43:
-    hop(786)
+    hop(int(786 * persistent.dsr_scale))
 transform h44:
-    hop(1080)
+    hop(int(1080 * persistent.dsr_scale))
 transform h31:
-    hop(240)
+    hop(int(240 * persistent.dsr_scale))
 transform h32:
-    hop(640)
+    hop(int(640 * persistent.dsr_scale))
 transform h33:
-    hop(1040)
+    hop(int(1040 * persistent.dsr_scale))
 transform h21:
-    hop(400)
+    hop(int(400 * persistent.dsr_scale))
 transform h22:
-    hop(880)
+    hop(int(880 * persistent.dsr_scale))
 transform h11:
-    hop(640)
+    hop(int(640 * persistent.dsr_scale))
 
 # Makes the character in focus, hop
 transform hf41:
-    hopfocus(200)
+    hopfocus(int(200 * persistent.dsr_scale))
 transform hf42:
-    hopfocus(493)
+    hopfocus(int(493 * persistent.dsr_scale))
 transform hf43:
-    hopfocus(786)
+    hopfocus(int(786 * persistent.dsr_scale))
 transform hf44:
-    hopfocus(1080)
+    hopfocus(int(1080 * persistent.dsr_scale))
 transform hf31:
-    hopfocus(240)
+    hopfocus(int(240 * persistent.dsr_scale))
 transform hf32:
-    hopfocus(640)
+    hopfocus(int(640 * persistent.dsr_scale))
 transform hf33:
-    hopfocus(1040)
+    hopfocus(int(1040 * persistent.dsr_scale))
 transform hf21:
-    hopfocus(400)
+    hopfocus(int(400 * persistent.dsr_scale))
 transform hf22:
-    hopfocus(880)
+    hopfocus(int(880 * persistent.dsr_scale))
 transform hf11:
-    hopfocus(640)
+    hopfocus(int(640 * persistent.dsr_scale))
 
 # Makes the character dip
 transform d41:
-    dip(200)
+    dip(int(200 * persistent.dsr_scale))
 transform d42:
-    dip(493)
+    dip(int(493 * persistent.dsr_scale))
 transform d43:
-    dip(786)
+    dip(int(786 * persistent.dsr_scale))
 transform d44:
-    dip(1080)
+    dip(int(1080 * persistent.dsr_scale))
 transform d31:
-    dip(240)
+    dip(int(240 * persistent.dsr_scale))
 transform d32:
-    dip(640)
+    dip(int(640 * persistent.dsr_scale))
 transform d33:
-    dip(1040)
+    dip(int(1040 * persistent.dsr_scale))
 transform d21:
-    dip(400)
+    dip(int(400 * persistent.dsr_scale))
 transform d22:
-    dip(880)
+    dip(int(880 * persistent.dsr_scale))
 transform d11:
-    dip(640)
+    dip(int(640 * persistent.dsr_scale))
 
 # Makes the character fly in from the left
 transform l41:
-    leftin(200)
+    leftin(int(200 * persistent.dsr_scale))
 transform l42:
-    leftin(493)
+    leftin(int(493 * persistent.dsr_scale))
 transform l43:
-    leftin(786)
+    leftin(int(786 * persistent.dsr_scale))
 transform l44:
-    leftin(1080)
+    leftin(int(1080 * persistent.dsr_scale))
 transform l31:
-    leftin(240)
+    leftin(int(240 * persistent.dsr_scale))
 transform l32:
-    leftin(640)
+    leftin(int(640 * persistent.dsr_scale))
 transform l33:
-    leftin(1040)
+    leftin(int(1040 * persistent.dsr_scale))
 transform l21:
-    leftin(400)
+    leftin(int(400 * persistent.dsr_scale))
 transform l22:
-    leftin(880)
+    leftin(int(880 * persistent.dsr_scale))
 transform l11:
-    leftin(640)
+    leftin(int(640 * persistent.dsr_scale))
 
 # Makes the character fly in from the right
 transform r41:
-    rightin(200)
+    rightin(int(200 * persistent.dsr_scale))
 transform r42:
-    rightin(493)
+    rightin(int(493 * persistent.dsr_scale))
 transform r43:
-    rightin(786)
+    rightin(int(786 * persistent.dsr_scale))
 transform r44:
-    rightin(1080)
+    rightin(int(1080 * persistent.dsr_scale))
 transform r31:
-    rightin(240)
+    rightin(int(240 * persistent.dsr_scale))
 transform r32:
-    rightin(640)
+    rightin(int(640 * persistent.dsr_scale))
 transform r33:
-    rightin(1040)
+    rightin(int(1040 * persistent.dsr_scale))
 transform r21:
-    rightin(400)
+    rightin(int(400 * persistent.dsr_scale))
 transform r22:
-    rightin(880)
+    rightin(int(880 * persistent.dsr_scale))
 transform r11:
-    rightin(640)
+    rightin(int(640 * persistent.dsr_scale))
 
 # When MC opens his eyes to Sayori's face
 transform face(z=0.80, y=500):
@@ -303,7 +303,7 @@ transform face(z=0.80, y=500):
     xcenter 640
     yanchor 1.0 ypos 1.03
     yoffset y
-    zoom z*2.00
+    zoom z*(2.00*persistent.dsr_scale)
 
 # Fade for a new CG
 transform cgfade:
@@ -337,7 +337,7 @@ transform n_cg2_zoom:
     subpixel True
     truecenter
     xoffset 0
-    easeout 0.20 zoom 2.5 xoffset 200
+    easeout 0.20 zoom (2.5*persistent.dsr_scale) xoffset 200
 
 # Controls the default dissolve speed
 define dissolve = Dissolve(0.25)
@@ -471,11 +471,11 @@ transform layerflicker(t=0):
     truecenter
     t + 2.030
     parallel:
-        zoom 1.05
+        zoom (1.05*persistent.dsr_scale)
         linear 0.2 zoom 1.04
         0.1
-        zoom 1.035
-        linear 0.1 zoom 1.05
+        zoom (1.035*persistent.dsr_scale)
+        linear 0.1 zoom (1.05*persistent.dsr_scale)
         zoom 1.0
         1.19
         repeat
@@ -505,10 +505,10 @@ transform heartbeat2(m):
     truecenter
     parallel:
         0.144
-        zoom 1.00 + 0.07 * m
-        easein 0.250 zoom 1.00 + 0.04 * m
-        easeout 0.269 zoom 1.00 + 0.07 * m
-        zoom 1.00
+        zoom (1.00*persistent.dsr_scale) + 0.07 * m
+        easein 0.250 zoom (1.00*persistent.dsr_scale) + 0.04 * m
+        easeout 0.269 zoom (1.00*persistent.dsr_scale) + 0.07 * m
+        zoom (1.00*persistent.dsr_scale)
         1.479
         repeat
     parallel:
