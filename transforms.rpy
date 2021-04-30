@@ -314,6 +314,15 @@ transform cgfade:
         alpha 1.0
         linear 0.5 alpha 0.0
 
+transform cgfade_dsr(dsr):
+    size (int(dsr[0] * persistent.dsr_scale), int(dsr[1] * persistent.dsr_scale))
+    on show:
+        alpha 0.0
+        linear 0.5 alpha 1.0
+    on hide:
+        alpha 1.0
+        linear 0.5 alpha 0.0
+
 # A little wiggle for Natsuki in the closet
 transform n_cg2_wiggle:
     subpixel True

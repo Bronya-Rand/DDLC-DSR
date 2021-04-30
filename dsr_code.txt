@@ -1,0 +1,19 @@
+#BG
+
+at dynamic_super_resolution(read_image_size("bg/residential.png"))
+at dynamic_super_resolution(read_image_size("bg/class.png"))
+at dynamic_super_resolution(read_image_size("bg/corridor.png"))
+at dynamic_super_resolution(read_image_size("bg/house.png"))
+at dynamic_super_resolution(read_image_size("bg/sayori_bedroom.png"))
+at dynamic_super_resolution(read_image_size("bg/kitchen.png"))
+at dynamic_super_resolution(read_image_size("bg/bedroom.png"))
+
+#CG
+at dynamic_super_resolution(read_image_size("images/cg/n_cg3_base.png"))
+at dynamic_super_resolution(read_image_size("images/cg/n_cg3_exp1.png"))
+at dynamic_super_resolution(read_image_size("images/cg/n_cg3_cake.png"))
+
+at dynamic_super_resolution(read_image_size("images/cg/y_cg3_base.png"))
+at dynamic_super_resolution(read_image_size("images/cg/y_cg3_exp1.png"))
+
+at dynamic_super_resolution(read_image_size("images/cg/s_cg3.png"))
